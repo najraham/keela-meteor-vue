@@ -39,12 +39,7 @@ export default {
         };
     },
     created() {
-        Tracker.autorun(() => {
-            if(Meteor.user()) {
-                this.isLoggedIn = true
-            }
-        })
-        if(this.isLoggedIn){
+        if(localStorage.getItem('username') !== null){
             this.$router.push('/')
         }
     },
@@ -54,8 +49,15 @@ export default {
                 username: this.user.username,
                 email: this.user.email,
                 password: this.user.password
-            }, () => {
-                this.$router.push('/')
+            }, (error,result) => {
+                if(error) {
+                    this.flashMessage.error({title: 'Registration failed'});
+                }
+                else {
+                    this.flashMessage.success({title: 'Registration successful'});
+                    localStorage.setItem('username', this.user.username)
+                    this.$router.push('/')
+                }
             })
         }
     },

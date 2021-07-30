@@ -9,15 +9,17 @@
             </b-form>
         </div>
         
-        <h2>To-do(s)</h2>
-        <b-list-group>
-            <b-list-group-item v-for="(task,index) in tasks" :key="index">
-                {{task.title}}
-                <div class="float-right">
-                    <button class="btn btn-danger" @click="deleteTask(task._id)"><b-icon-trash></b-icon-trash></button>
-                </div>
-            </b-list-group-item>
-        </b-list-group>
+        <div class=" w-50">
+            <h2>To-do(s)</h2>
+            <b-list-group>
+                <b-list-group-item v-for="(task,index) in tasks" :key="index">
+                    {{task.title}}
+                    <div class="float-right">
+                        <button class="btn btn-danger" @click="deleteTask(task._id)"><b-icon-trash></b-icon-trash></button>
+                    </div>
+                </b-list-group-item>
+            </b-list-group>
+        </div>
     </div>
 </template>
 
@@ -44,22 +46,18 @@ import {Tracker} from 'meteor/tracker'
             }
         },
         created() {
-        Tracker.autorun(() => {
-            if(Meteor.user()) {
-                this.isLoggedIn = true
+            if(localStorage.getItem('username') === null){
+                this.$router.push('/login')
             }
-        })
-        if(!this.isLoggedIn){
-            this.$router.push('/login')
-        }
         },
         methods: {
             saveNewTask() {
                 Meteor.call('createTask', this.task, (error,result) => {
                     if(error) {
-                        console.log('something went wrong', error)
+                        this.flashMessage.error({title: 'Attempt failed'})
                     }
                     else {
+                        this.flashMessage.success({title: 'Task added successfully'})
                         this.task = {
                             title: ''
                         }

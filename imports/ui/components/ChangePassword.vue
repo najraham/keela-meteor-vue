@@ -7,7 +7,7 @@
                 
                 <br>
 
-                <b-form-input id="newpwd" name="newpwd" type="password" placeholder="New Password" required v-model="newpwd"></b-form-input>
+                <b-form-input id="newpwd" name="newpwd" type="text" placeholder="New Password" required v-model="newpwd"></b-form-input>
             
                 <br>
 
@@ -22,6 +22,7 @@ import { Meteor } from 'meteor/meteor'
 import { Accounts } from 'meteor/accounts-base'
 
     export default {
+    name: "Change Password",
         data() {
             return {
                 oldpwd: "",
@@ -30,10 +31,17 @@ import { Accounts } from 'meteor/accounts-base'
         },
         methods: {
             change_password() {
-                Accounts.changePassword(this.oldpwd, this.newpwd, () => {
-                    Meteor.logout(() => {
-                        this.$router.push('/login')
-                    })
+                Accounts.changePassword(this.oldpwd, this.newpwd, (error, result) => {
+                    if(error) {
+                        this.flashMessage.error({title: 'Attempt failed'})
+                    }
+                    else {
+                        this.flashMessage.success({title: 'Password changed successfully'})
+                        localStorage.removeItem('username')
+                        Meteor.logout(() => {
+                            this.$router.push('/login')
+                        })
+                    }
                 })
             }
         }

@@ -18,8 +18,7 @@
 </template>
 
 <script>
-import { Meteor } from 'meteor/meteor';
-import {Tracker} from 'meteor/tracker'
+import { Meteor } from 'meteor/meteor'
 
 export default {
     name: "LoginForm",
@@ -29,23 +28,24 @@ export default {
                 username: "",
                 password: ""
             },
-            isLoggedIn:false
         };
     },
     created() {
-        Tracker.autorun(() => {
-            if(Meteor.user()) {
-                this.isLoggedIn = true
-            }
-        })
-        if(this.isLoggedIn){
+        if(localStorage.getItem('username') !== null){
             this.$router.push('/')
         }
     },
     methods: {
         login() {
-            Meteor.loginWithPassword(this.user.username, this.user.password, () => {
-                this.$router.push('/')
+            Meteor.loginWithPassword(this.user.username, this.user.password, (error,result) => {
+                if(error) {
+                    this.flashMessage.error({title: 'Login failed'});
+                }
+                else {
+                    this.flashMessage.success({title: 'Login successful'});
+                    localStorage.setItem('username', this.user.username)
+                    this.$router.push('/')
+                }
             })
         }
     },
