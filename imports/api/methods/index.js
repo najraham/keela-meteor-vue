@@ -1,1 +1,2 @@
 import './taskMethods'
+import './userMethods'

@@ -42,7 +42,7 @@ export default {
     },
     methods: {
         register() {
-            Meteor.call('createUser', this.user, (error) => {
+            Meteor.call('registerUser', this.user, (error) => {
                 if(error) {
                     this.flashMessage.error({title: 'Registration failed', message: error.reason})
                 }
