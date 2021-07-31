@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { Accounts } from 'meteor/accounts-base'
+import {Meteor} from 'meteor/meteor'
 
 export default {
     name: "LoginForm",
@@ -33,27 +33,22 @@ export default {
                 email: "",
                 password: "",
             },
-            isLoggedIn:false
         };
     },
     created() {
-        if(localStorage.getItem('username') !== null){
+        if(Meteor.userId()){
             this.$router.push('/')
         }
     },
     methods: {
         register() {
-            Accounts.createUser({
-                username: this.user.username,
-                email: this.user.email,
-                password: this.user.password
-            }, (error,result) => {
+            Meteor.call('createUser', this.user, (error) => {
                 if(error) {
-                    this.flashMessage.error({title: 'Registration failed'});
+                    this.flashMessage.error({title: 'Registration failed', message: error.reason})
                 }
                 else {
-                    this.flashMessage.success({title: 'Registration successful'});
-                    localStorage.setItem('username', this.user.username)
+                    Meteor.loginWithPassword(this.user.username, this.user.password)
+                    this.flashMessage.success({title: 'Registration successful'})
                     this.$router.push('/')
                 }
             })

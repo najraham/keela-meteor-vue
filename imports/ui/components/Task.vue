@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import {Meteor} from 'meteor/meteor'
-import {Tasks} from '../../db/Tasks'
+    import {Meteor} from 'meteor/meteor'
+    import {Tasks} from '../../db/Tasks'
     export default {
         data() {
             return {
@@ -34,8 +34,6 @@ import {Tasks} from '../../db/Tasks'
                     createdAt: new Date(),
                     userId: ''
                 },
-                isLoggedIn:false,
-                username: localStorage.getItem('username')
             }
         },
         meteor: {
@@ -47,16 +45,17 @@ import {Tasks} from '../../db/Tasks'
             }
         },
         created() {
-            if(localStorage.getItem('username') === null){
+            if(!Meteor.userId()){
                 this.$router.push('/login')
             }
         },
         methods: {
+            
             saveNewTask() {
-                this.task.userId = localStorage.getItem('userId')
-                Meteor.call('createTask', this.task, (error,result) => {
+                var payload = {...this.task, userId: Meteor.userId()}
+                Meteor.call('createTask', payload, (error) => {
                     if(error) {
-                        this.flashMessage.error({title: 'Attempt failed'})
+                        this.flashMessage.error({title: 'Attempt failed', message: error.reason})
                     }
                     else {
                         this.flashMessage.success({title: 'Task added successfully'})
@@ -67,12 +66,12 @@ import {Tasks} from '../../db/Tasks'
                 })
             },
             deleteTask(id) {
-                Meteor.call('deleteTask', id,  (error,result) => {
+                Meteor.call('deleteTask', id,  (error) => {
                     if(error) {
-                        console.log('something went wrong', error)
+                        this.flashMessage.error({title: 'Attempt failed', message: error.reason})
                     }
                     else {
-                        console.log(result)
+                        this.flashMessage.success({title: 'Task deleted successfully'})
                     }
                 })
             }

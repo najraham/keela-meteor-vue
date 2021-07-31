@@ -31,13 +31,12 @@ import { Accounts } from 'meteor/accounts-base'
         },
         methods: {
             change_password() {
-                Accounts.changePassword(this.oldpwd, this.newpwd, (error, result) => {
+                Accounts.changePassword(this.oldpwd, this.newpwd, (error) => {
                     if(error) {
-                        this.flashMessage.error({title: 'Attempt failed'})
+                        this.flashMessage.error({title: 'Attempt failed', message: error.reason})
                     }
                     else {
                         this.flashMessage.success({title: 'Password changed successfully'})
-                        localStorage.removeItem('username')
                         Meteor.logout(() => {
                             this.$router.push('/login')
                         })

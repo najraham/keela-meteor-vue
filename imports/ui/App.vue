@@ -1,16 +1,24 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3 fixed-top">
-      <router-link class="navbar-brand" to="/">Todo List</router-link>
-      <div v-if="user">
-        <button class="btn btn-dark" @click="logout"> Logout </button>
-        <router-link class="btn btn-dark" to="/change-password"> Change Password ? </router-link>
-        <button class="btn btn-dark"> User : {{user.username}} </button>
-      </div>
-      <div v-else>
-        <router-link class="btn btn-dark" to="/login"> Login </router-link>
-        <router-link class="btn btn-dark" to="/register"> Register </router-link>
-      </div>
+      <table style="width:100%">
+        <tr>
+          <td>
+            <router-link class="navbar-brand" to="/">Todo List</router-link>
+          </td>
+          <td style="text-align:right">
+            <div v-if="userId">
+              <button class="btn btn-dark" @click="logout"> Logout </button>
+              <router-link class="btn btn-dark" to="/change-password"> Change Password ? </router-link>
+              <button class="btn btn-default"> User : {{user ? user.username : ''}} </button>
+            </div>
+            <div v-else>
+              <router-link class="btn btn-dark" to="/login"> Login </router-link>
+              <router-link class="btn btn-dark" to="/register"> Register </router-link>
+            </div>
+          </td>
+        </tr>
+      </table>
     </nav>
     <FlashMessage :position="'right bottom'"></FlashMessage>
     <div style="height:50px"></div>
@@ -26,18 +34,20 @@ import {Tracker} from 'meteor/tracker'
 export default {
   data() {
     return {
+      userId: null,
       user: null
     }
   },
   created() {
     Tracker.autorun(() => {
+      this.userId = Meteor.userId()
       this.user = Meteor.user()
     })
   },
   methods: {
     logout()  {
       Meteor.logout(() => {
-        localStorage.removeItem('username')
+        this.userId = null
         this.$router.push('/login')
       })
     }
