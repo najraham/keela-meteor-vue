@@ -42,8 +42,9 @@ export default {
                     this.flashMessage.error({title: 'Login failed'});
                 }
                 else {
-                    this.flashMessage.success({title: 'Login successful'});
+                    this.flashMessage.success({title: 'Login successful'})
                     localStorage.setItem('username', this.user.username)
+                    localStorage.setItem('userId', Meteor.userId())
                     this.$router.push('/')
                 }
             })

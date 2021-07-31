@@ -3,7 +3,7 @@
         <div class="card mb-4">
             <h3 class=" bg-dark text-white card-header">Change Password</h3>
             <b-form class="card-body" @submit.prevent="change_password">
-                <b-form-input id="oldpwd" name="oldpwd" type="text" placeholder="Old Passwrod" required v-model="oldpwd"></b-form-input>
+                <b-form-input id="oldpwd" name="oldpwd" type="text" placeholder="Old Password" required v-model="oldpwd"></b-form-input>
                 
                 <br>
 

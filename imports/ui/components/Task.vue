@@ -25,21 +25,22 @@
 
 <script>
 import {Meteor} from 'meteor/meteor'
-import {Tasks} from '../../api/collections/Tasks'
-import {Tracker} from 'meteor/tracker'
+import {Tasks} from '../../db/Tasks'
     export default {
         data() {
             return {
                 task: {
                     title: '',
-                    createdAt: new Date()
+                    createdAt: new Date(),
+                    userId: ''
                 },
-                isLoggedIn:false
+                isLoggedIn:false,
+                username: localStorage.getItem('username')
             }
         },
         meteor: {
             $subscribe: {
-                allTasks: []
+                tasks: []
             },
             tasks() {
                 return Tasks.find({}).fetch()
@@ -52,6 +53,7 @@ import {Tracker} from 'meteor/tracker'
         },
         methods: {
             saveNewTask() {
+                this.task.userId = localStorage.getItem('userId')
                 Meteor.call('createTask', this.task, (error,result) => {
                     if(error) {
                         this.flashMessage.error({title: 'Attempt failed'})

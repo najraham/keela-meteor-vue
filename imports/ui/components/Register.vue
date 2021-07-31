@@ -22,9 +22,7 @@
 </template>
 
 <script>
-import { Meteor } from 'meteor/meteor'
 import { Accounts } from 'meteor/accounts-base'
-import {Tracker} from 'meteor/tracker'
 
 export default {
     name: "LoginForm",
