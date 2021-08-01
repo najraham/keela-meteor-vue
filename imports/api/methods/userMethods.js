@@ -22,6 +22,9 @@ Meteor.methods({
     if (user) {
       Accounts.sendResetPasswordEmail(user._id);
     }
+    else {
+        throw new Meteor.Error("bad", "Email could not be sent");
+    }
   },
 
   resetPwd(token, newpwd) {
