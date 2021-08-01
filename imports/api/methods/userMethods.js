@@ -12,7 +12,7 @@ Meteor.methods({
             password: user.password
         })
     },
-    passwordChange(userId, newpwd, oldpwd) {
+    passwordChange(userId, newpwd) {
         Accounts.setPassword(userId, newpwd)
     }
 });

@@ -3,10 +3,6 @@
         <div class="card mb-4">
             <h3 class=" bg-dark text-white card-header">Change Password</h3>
             <b-form class="card-body" @submit.prevent="change_password">
-                <b-form-input id="oldpwd" name="oldpwd" type="password" placeholder="Old Password" required v-model="oldpwd"></b-form-input>
-                
-                <br>
-
                 <b-form-input id="newpwd" name="newpwd" type="password" placeholder="New Password" required v-model="newpwd"></b-form-input>
             
                 <br>
@@ -24,7 +20,6 @@ import { Meteor } from 'meteor/meteor'
     name: "Change Password",
         data() {
             return {
-                oldpwd: "",
                 newpwd: "",
             }
         },
@@ -36,7 +31,7 @@ import { Meteor } from 'meteor/meteor'
         methods: {
             change_password() {
                 const userId = Meteor.userId()
-                Meteor.call('passwordChange',userId, this.newpwd, this.oldpwd , (error) => {
+                Meteor.call('passwordChange',userId, this.newpwd , (error) => {
                     if(error) {
                         this.flashMessage.error({title: 'Attempt failed', message: error.reason})
                     }
