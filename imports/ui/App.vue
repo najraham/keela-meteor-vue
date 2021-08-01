@@ -10,7 +10,7 @@
             <div v-if="userId">
               <button class="btn btn-dark" @click="logout"> Logout </button>
               <router-link class="btn btn-dark" to="/change-password"> Change Password ? </router-link>
-              <button class="btn btn-default"> User : {{user ? user.username : ''}} </button>
+              <button class="btn btn-"> User : {{user ? user.username : ''}} </button>
             </div>
             <div v-else>
               <router-link class="btn btn-dark" to="/login"> Login </router-link>

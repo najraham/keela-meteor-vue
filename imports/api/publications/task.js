@@ -1,6 +1,6 @@
-import { Meteor } from 'meteor/meteor';
-import {Tasks} from '../../db/Tasks';
+import { Meteor } from "meteor/meteor";
+import { Tasks } from "../../db/Tasks";
 
-Meteor.publish('tasks', function publishTasks() {
-    return Tasks.find({userId: this.userId})
-})
+Meteor.publish("tasks", function publishTasks() {
+  return Tasks.find({ userId: this.userId });
+});

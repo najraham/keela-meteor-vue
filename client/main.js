@@ -1,43 +1,54 @@
-import Vue from 'vue'
-import { Meteor } from 'meteor/meteor'
+import Vue from "vue";
+import { Meteor } from "meteor/meteor";
 
-import '../imports/ui/plugins'
+import "../imports/ui/plugins";
 
-import App from '../imports/ui/App.vue'
-import Router from 'vue-router'
+import App from "../imports/ui/App.vue";
+import Router from "vue-router";
 
 Meteor.startup(() => {
-  Vue.use(Router)
+  Vue.use(Router);
 
   const router = new Router({
-    mode: 'history',
+    mode: "history",
     routes: [
       {
-        path: '/',
-        name: 'home',
-        component: () => import('../imports/ui/components/Task.vue')
+        path: "/",
+        name: "home",
+        component: () => import("../imports/ui/components/Task.vue"),
       },
       {
-        path: '/login',
-        name: 'login',
-        component: () => import('../imports/ui/components/Login.vue')
+        path: "/login",
+        name: "login",
+        component: () => import("../imports/ui/components/Login.vue"),
       },
       {
-        path: '/register',
-        name: 'register',
-        component: () => import('../imports/ui/components/Register.vue')
+        path: "/register",
+        name: "register",
+        component: () => import("../imports/ui/components/Register.vue"),
       },
       {
-        path: '/change-password',
-        name: 'change-password',
-        component: () => import('../imports/ui/components/ChangePassword.vue')
+        path: "/change-password",
+        name: "change-password",
+        component: () => import("../imports/ui/components/ChangePassword.vue"),
       },
-    ]
-  })
+      {
+        path: "/forgot-password",
+        name: "forgot-password",
+        component: () => import("../imports/ui/components/ForgotPassword.vue"),
+      },
+      {
+        path: "/reset-password/:token",
+        name: "reset-password",
+        component: () => import("../imports/ui/components/ResetPassword.vue"),
+      },
+    ],
+  });
 
   new Vue({
-    el: '#app',
+    el: "#app",
     ...App,
     router,
-  })
-})
+    mode: "history",
+  });
+});
