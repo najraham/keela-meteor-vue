@@ -29,9 +29,6 @@ export default {
       token: this.$route.params.token,
     };
   },
-  created() {
-    console.log("token", this.token);
-  },
   methods: {
     reset_password() {
       Accounts.resetPassword( this.token, this.newpwd, (error) => {
@@ -42,7 +39,7 @@ export default {
           });
         } else {
           this.flashMessage.success({ title: "Password reset successfully" });
-          this.$router.push("/login");
+          this.$router.push("/");
           this.newpwd = ''
         }
       });
