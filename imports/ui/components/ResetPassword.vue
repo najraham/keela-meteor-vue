@@ -31,16 +31,22 @@ export default {
   },
   methods: {
     reset_password() {
-      Accounts.resetPassword( this.token, this.newpwd, (error) => {
+      Accounts.resetPassword(this.token, this.newpwd, (error) => {
         if (error) {
           this.flashMessage.error({
             title: "Attempt failed",
             message: error.reason,
+            y: 70,
+            x: 10,
           });
         } else {
-          this.flashMessage.success({ title: "Password reset successfully" });
+          this.flashMessage.success({
+            title: "Password reset successfully",
+            y: 70,
+            x: 10,
+          });
           this.$router.push("/");
-          this.newpwd = ''
+          this.newpwd = "";
         }
       });
     },

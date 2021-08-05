@@ -65,9 +65,15 @@ export default {
             this.flashMessage.error({
               title: "Login failed",
               message: error.reason,
+              y: 70,
+              x: 10,
             });
           } else {
-            this.flashMessage.success({ title: "Login successful" });
+            this.flashMessage.success({
+              title: "Login successful",
+              y: 70,
+              x: 10,
+            });
             this.$router.push("/");
           }
         }

@@ -35,9 +35,15 @@ export default {
           this.flashMessage.error({
             title: "Attempt failed",
             message: error.reason,
+            y: 70,
+            x: 10,
           });
         } else {
-          this.flashMessage.success({ title: "Email sent successfully" });
+          this.flashMessage.success({
+            title: "Email sent successfully",
+            y: 70,
+            x: 10,
+          });
         }
       });
     },

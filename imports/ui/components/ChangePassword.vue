@@ -43,9 +43,15 @@ export default {
           this.flashMessage.error({
             title: "Attempt failed",
             message: error.reason,
+            y: 70,
+            x: 10,
           });
         } else {
-          this.flashMessage.success({ title: "Password changed successfully" });
+          this.flashMessage.success({
+            title: "Password changed successfully",
+            y: 70,
+            x: 10,
+          });
           Meteor.logout(() => {
             this.$router.push("/login");
           });

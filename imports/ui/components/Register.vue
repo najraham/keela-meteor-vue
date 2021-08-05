@@ -68,10 +68,16 @@ export default {
           this.flashMessage.error({
             title: "Registration failed",
             message: error.reason,
+            y: 70,
+            x: 10,
           });
         } else {
           Meteor.loginWithPassword(this.user.username, this.user.password);
-          this.flashMessage.success({ title: "Registration successful" });
+          this.flashMessage.success({
+            title: "Registration successful",
+            y: 70,
+            x: 10,
+          });
           this.$router.push("/");
         }
       });

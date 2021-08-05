@@ -20,8 +20,8 @@
         </tr>
       </table>
     </nav>
-    <FlashMessage :position="'right bottom'"></FlashMessage>
-    <div style="height:50px"></div>
+    <FlashMessage :position="'right top'"></FlashMessage>
+    <div style="height:90px"></div>
     <div class="mt-3 p-5 ">
       <router-view/>
     </div>
