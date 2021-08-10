@@ -79,11 +79,11 @@ export default {
       return Tasks.find({}).fetch();
     },
   },
-  created() {
-    if (!Meteor.userId()) {
-      this.$router.push("/login");
-    }
-  },
+  // created() {
+  //   if (!Meteor.userId()) {
+  //     this.$router.push("/login");
+  //   }
+  // },
   methods: {
     saveNewTask() {
       var payload = { ...this.task, createdAt: new Date(), userId: Meteor.userId() };

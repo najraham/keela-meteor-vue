@@ -5,45 +5,27 @@ import "../imports/ui/plugins";
 
 import App from "../imports/ui/App.vue";
 import Router from "vue-router";
+import routes from "./router"
 
 Meteor.startup(() => {
   Vue.use(Router);
 
   const router = new Router({
     mode: "history",
-    routes: [
-      {
-        path: "/",
-        name: "home",
-        component: () => import("../imports/ui/components/Task.vue"),
-      },
-      {
-        path: "/login",
-        name: "login",
-        component: () => import("../imports/ui/components/Login.vue"),
-      },
-      {
-        path: "/register",
-        name: "register",
-        component: () => import("../imports/ui/components/Register.vue"),
-      },
-      {
-        path: "/change-password",
-        name: "change-password",
-        component: () => import("../imports/ui/components/ChangePassword.vue"),
-      },
-      {
-        path: "/forgot-password",
-        name: "forgot-password",
-        component: () => import("../imports/ui/components/ForgotPassword.vue"),
-      },
-      {
-        path: "/reset-password/:token",
-        name: "reset-password",
-        component: () => import("../imports/ui/components/ResetPassword.vue"),
-      },
-    ],
+    routes
   });
+
+  router.beforeEach((to, from, next) => { 
+    if (to.matched.some(record => record.meta.conditionalRoute)) {
+        if (!Meteor.userId()) { 
+            next({ path: '/login'}) 
+          } else { 
+            next()
+        } 
+    } else { 
+        next()
+    } 
+  })
 
   new Vue({
     el: "#app",
