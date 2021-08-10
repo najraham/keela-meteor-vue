@@ -65,7 +65,7 @@ export default {
     return {
       task: {
         title: "",
-        createdAt: new Date(),
+        createdAt: "",
         userId: "",
       },
       edit: false,
@@ -86,7 +86,7 @@ export default {
   },
   methods: {
     saveNewTask() {
-      var payload = { ...this.task, userId: Meteor.userId() };
+      var payload = { ...this.task, createdAt: new Date(), userId: Meteor.userId() };
       Meteor.call("createTask", payload, (error) => {
         window.scrollTo(0, 0);
         if (error) {
