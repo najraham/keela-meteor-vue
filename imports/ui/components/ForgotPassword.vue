@@ -28,6 +28,11 @@ export default {
       userEmail: "",
     };
   },
+  created() {
+    if (Meteor.userId()) {
+      this.$router.push("/");
+    }
+  },
   methods: {
     forgot_password() {
       Meteor.call("sendResetPwdEmail", this.userEmail, (error) => {

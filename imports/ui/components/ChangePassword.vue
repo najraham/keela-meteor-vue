@@ -30,11 +30,6 @@ export default {
       newpwd: "",
     };
   },
-  created() {
-    if (!Meteor.userId()) {
-      this.$router.push("/login");
-    }
-  },
   methods: {
     change_password() {
       const userId = Meteor.userId();
