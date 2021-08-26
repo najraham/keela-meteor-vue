@@ -59,7 +59,7 @@
 
 <script>
 import { Meteor } from "meteor/meteor";
-import { Tasks } from "../../db/Tasks";
+import { Tasks } from "../../../db/Tasks";
 export default {
   data() {
     return {

@@ -8,6 +8,7 @@
           </td>
           <td style="text-align:right">
             <div v-if="userId">
+              <router-link class="btn btn-dark" to="/users"> Users </router-link>
               <button class="btn btn-dark" @click="logout"> Logout </button>
               <router-link class="btn btn-dark" to="/change-password"> Change Password ? </router-link>
               <button class="btn btn-primary"> User : {{user ? user.username : ''}} </button>
