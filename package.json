@@ -2,7 +2,7 @@
   "name": "meteor-vue",
   "private": true,
   "scripts": {
-    "start": "set MAIL_URL=smtp://apikey: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@smtp.sendgrid.net:587 && meteor run",
+    "start": "meteor run",
     "test": "meteor test --once --driver-package meteortesting:mocha",
     "test-app": "TEST_WATCH=1 meteor test --full-app --driver-package meteortesting:mocha",
     "visualize": "meteor --production --extra-packages bundle-visualizer"
